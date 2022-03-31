@@ -30,19 +30,26 @@ document.querySelector('#faster').addEventListener('click', function() {
 	console.log('The new playback rate is ' + video.playbackRate);
 });
 
-// finished to this point
-
 document.querySelector('#skip').addEventListener('click', function() {
-	video.currentTime += 15;
+	if (video.currentTime <= video.duration) {
+		video.currentTime += 15;
+	}
+	else {
+		video.currentTime = 0
+	};
 	console.log('The current location of the video is ' + video.currentTime + ' seconds');
 });
 
 document.querySelector('#mute').addEventListener('click', function() {
-	video.muted = true;
-	console.log('The value of mute is ' + video.muted);
-
-	if (video.muted == true) {
-
+	if (video.muted == false) {
+		video.muted = true;
+		document.querySelector('#mute').innerHTML = 'Unmute';
+		console.log('The value of mute is ' + video.muted);
+	}
+	else {
+	 	video.muted = false;
+	 	document.querySelector('#mute').innerHTML = 'Mute';
+		console.log('The value of mute is ' + video.muted);
 	};
 });
 
@@ -50,4 +57,14 @@ document.querySelector('#slider').addEventListener('click', function() {
 	console.log(this.value);
 	video.volume = this.value / 100;
 	document.querySelector('#volume').innerHTML = video.volume * 100 + '%'
+});
+
+document.querySelector('#vintage').addEventListener('click', function() {
+	video.setAttribute('class', 'oldSchool');
+	console.log('The style of the video element is old school')
+});
+
+document.querySelector('#orig').addEventListener('click', function() {
+	video.removeAttribute('class');
+	console.log('The style of the video element is original')
 });
